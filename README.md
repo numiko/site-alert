@@ -14,7 +14,7 @@ based off the original code for Chatham House https://bitbucket.org/numiko/elect
 ## Example
 ---
 ```javascript
-import SiteAlerts from './site-alert.js';
+import SiteAlert from '@numiko/site-alert';
 
 
 const numikoSiteAlerts = new siteAlerts('[data-js-alert]', {
