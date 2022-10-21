@@ -9,6 +9,8 @@ based off the original code for Chatham House https://bitbucket.org/numiko/elect
 ---
 `npm install bitbucket:numiko/@numiko/site-alert`
 
+`npm install bitbucket:numiko/@numiko/site-alert#<TAG_NAME>`
+
 <br />
 
 ## Example

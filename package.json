@@ -1,6 +1,6 @@
 {
   "name": "@numiko/site-alert",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Session based site alerts",
   "main": "index.js",
   "type": "module",
