@@ -7,9 +7,9 @@ based off the original code for Chatham House https://bitbucket.org/numiko/elect
 
 ## Installation
 ---
-`npm install bitbucket:numiko/@numiko/site-alert`
+We want to install a specific tag because currently npm packages hosted privately on Bitbucket do not support semantic versioning.
 
-`npm install bitbucket:numiko/@numiko/site-alert#<TAG_NAME>`
+`npm install ssh://git@bitbucket.org:numiko/site-alert.git#<TAG_NAME>`
 
 <br />
 
