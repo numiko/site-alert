@@ -1,8 +1,7 @@
 {
   "name": "@numiko/site-alert",
-  "version": "0.1.0",
-  "description": "Session based site alerts",
-  "main": "index.js",
+  "description": "Site alerts",
+  "version": "1.0.0",
   "type": "module",
   "private": true,
   "repository": {
@@ -10,16 +9,34 @@
     "url": "git+ssh://git@bitbucket.org/numiko/site-alert.git"
   },
   "scripts": {
-    "test": "vitest --globals --environment happy-dom"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
   },
-  "author": "",
-  "license": "ISC",
+  "main": "./dist/SiteAlert.umd.js",
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/SiteAlert.es.js",
+      "require": "./dist/SiteAlert.umd.js"
+    }
+  },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "gsap": "^3.12.5",
+    "js-cookie": "^3.0.5"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "^1.6.0",
+    "eslint": "^8.56.0",
     "happy-dom": "^7.8.1",
     "vite": "^5.2.12",
+    "vite-plugin-eslint": "^1.8.1",
     "vitest": "^1.6.0"
   }
 }
