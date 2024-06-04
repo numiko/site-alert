@@ -1,30 +1,48 @@
-let s = [];
-class o {
-  constructor(e, t) {
-    this.alerts = typeof e > "u" ? document.querySelectorAll("[data-js-alert]") : typeof e == "string" ? document.querySelectorAll(e) : e, this.closeButton = typeof t.closeButton == "string" ? document.querySelectorAll(t.closeButton) : t.closeButton;
+import i from "gsap";
+import o from "js-cookie";
+class a {
+  constructor(e, t = {}) {
+    var s;
+    this.alert = typeof e == "string" ? document.querySelector(e) : e, this.closeElement = typeof e == "string" ? document.querySelector("options.closeElement") : t.closeElement, this.id = t.id || ((s = this.alert) == null ? void 0 : s.dataset.jsAlertId), this.cookiePrefix = t.cookiePrefix || "site_alert", this.cookieExpiryInDays = t.cookieExpiry || 7, this.init();
   }
-  /**
-  * Check local storage for the ids of alerts which have been closed/accpeted
-  */
-  checkSessionStorage() {
-    sessionStorage.numiko_site_alerts && (s = JSON.parse(sessionStorage.numiko_site_alerts), s.forEach((e) => {
-      this.alerts = Array.from(this.alerts).filter((t) => t.dataset.jsAlert != e);
-    })), this.alerts.forEach((e) => {
-      e.style.display = "block";
+  getCookieName() {
+    return `${this.cookiePrefix}_${this.id}`;
+  }
+  cookieExists() {
+    return o.get(this.getCookieName());
+  }
+  setCookie() {
+    o.set(this.getCookieName(), !0, { expires: this.cookieExpiryInDays });
+  }
+  showAlert() {
+    this.alert.classList.remove("hidden"), i.set(this.alert, {
+      display: "flex",
+      y: 50
+    }), i.to(this.alert, {
+      opacity: 1,
+      y: 0,
+      duration: 0.3,
+      delay: 0.75
     });
   }
-  listeners() {
-    this.closeButton.forEach((e) => {
-      e.addEventListener("click", (t) => {
-        let r = t.currentTarget.closest("[data-js-alert]");
-        s.push(r.dataset.jsAlert), sessionStorage.numiko_site_alerts = JSON.stringify(s), r.style.display = "none";
+  removeAlert() {
+    this.alert.remove();
+  }
+  addEventListeners() {
+    this.closeElement.addEventListener("click", (e) => {
+      e.preventDefault(), this.cookieExists() || this.setCookie(), i.to(this.alert, {
+        opacity: 0,
+        duration: 0.3,
+        onComplete: () => {
+          this.removeAlert();
+        }
       });
     });
   }
   init() {
-    this.checkSessionStorage(), this.listeners();
+    this.alert && (this.cookieExists() ? this.removeAlert() : (this.showAlert(), this.addEventListeners()));
   }
 }
 export {
-  o as default
+  a as SiteAlert
 };
