@@ -18,9 +18,7 @@ global.document = document;
 // Make sure the document is in a clear state before each test.
 beforeEach(() => {
   document.body.innerHTML = '';
-  // For some reason, using `document.write` throws an error where it is unable to
-  // fetch external scripts. This is why we are using `document.innerHTML` instead.
-  document.innerHTML = htmlDocumentContent;
+  document.write(htmlDocumentContent);
 });
 
 afterEach(()=> {
@@ -32,15 +30,21 @@ describe('Site alert initialisation', () => {
     const alertElSelector = '[data-js-alert-banner]';
     const alertEl = document.querySelector(alertElSelector);
 
-    const alert = new SiteAlert(alertElSelector);
+    const alert = new SiteAlert(alertElSelector, {
+      closeElement: '[data-js-alert-close]'
+    });
 
-    expect(alert.alert).toBe(alertEl);
+    expect(alert.alert).toBe(alertEl, {
+      closeElement: '[data-js-alert-close]'
+    });
   });
 
   it('should correctly initialise the alert element when passed an element', () => {
     const alertEl = document.querySelector('[data-js-alert-banner]');
 
-    const alert = new SiteAlert(alertEl);
+    const alert = new SiteAlert(alertEl, {
+      closeElement: '[data-js-alert-close]'
+    });
 
     expect(alert.alert).toBe(alertEl);
   });
@@ -72,7 +76,8 @@ describe('Site alert initialisation', () => {
     const ID = 'test-id';
 
     const alert = new SiteAlert('[data-js-alert-banner]', {
-      id: ID
+      id: ID,
+      closeElement: '[data-js-alert-close]'
     });
 
     expect(alert.id).toBe(ID);
@@ -82,7 +87,8 @@ describe('Site alert initialisation', () => {
     const COOKIE_PREFIX = 'cookie_prefix';
 
     const alert = new SiteAlert('[data-js-alert-banner]', {
-      cookiePrefix: COOKIE_PREFIX
+      cookiePrefix: COOKIE_PREFIX,
+      closeElement: '[data-js-alert-close]'
     });
 
     expect(alert.cookiePrefix).toBe(COOKIE_PREFIX);
@@ -92,9 +98,23 @@ describe('Site alert initialisation', () => {
     const COOKIE_EXPIRY = 2;
 
     const alert = new SiteAlert('[data-js-alert-banner]', {
-      cookieExpiry: COOKIE_EXPIRY
+      cookieExpiry: COOKIE_EXPIRY,
+      closeElement: '[data-js-alert-close]'
     });
 
     expect(alert.cookieExpiryInDays).toBe(COOKIE_EXPIRY);
   });
 });
+
+// describe('Site alert behaviour', () => {
+//   it('should hide the alert when the close button is clicked', () => {
+//     const alertEl = document.querySelector('[data-js-alert-banner]');
+//     const closeEl = document.querySelector('[data-js-alert-close]');
+
+//     new SiteAlert(alertEl, {
+//       closeElement: closeEl
+//     });
+
+//     console.log(closeEl);
+//   });
+// });
