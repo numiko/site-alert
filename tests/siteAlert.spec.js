@@ -130,7 +130,7 @@ describe('Site alert behaviour', () => {
 
     await delay(400);
 
-    // We grab a fresh instance because `happy-dom` caches the element.
+    // We grab a fresh instance because the element is cached.
     const alertElAfterClose = document.querySelector('[data-js-alert-banner]');
     expect(alertElAfterClose).toBe(null);
   });
@@ -148,5 +148,25 @@ describe('Site alert behaviour', () => {
     closeEl.click();
 
     expect(mockedCookieSet).toHaveBeenCalledOnce();
+  });
+
+  it('should remove the alert if it has already been closed', () => {
+    const ALERT_ID = '1';
+    const ALERT_PREFIX = 'alert';
+
+    vi.spyOn(window.document, 'cookie', 'get').mockReturnValue(`${ALERT_PREFIX}_${ALERT_ID}=true;`);
+
+    const alertEl = document.querySelector('[data-js-alert-banner]');
+    const closeEl = document.querySelector('[data-js-alert-close]');
+
+    new SiteAlert(alertEl, {
+      closeElement: closeEl,
+      cookiePrefix: ALERT_PREFIX,
+      id: ALERT_ID
+    });
+
+    // We grab a fresh instance because the element is cached.
+    const alertElAfterClose = document.querySelector('[data-js-alert-banner]');
+    expect(alertElAfterClose).toBe(null);
   });
 });
