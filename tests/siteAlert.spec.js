@@ -156,6 +156,9 @@ describe('Site alert behaviour', () => {
     const ALERT_ID = '1';
     const ALERT_PREFIX = 'alert';
 
+    // We set a cookie because a cookie is set when the alert is closed.
+    // When the `SiteAlert` sees this cookie, it knows it has been closed
+    // previously and should therefore hide the alert.
     vi.spyOn(window.document, 'cookie', 'get').mockReturnValue(`${ALERT_PREFIX}_${ALERT_ID}=true;`);
 
     const alertEl = document.querySelector('[data-js-alert-banner]');
