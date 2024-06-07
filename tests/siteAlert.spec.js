@@ -7,14 +7,16 @@ import { SiteAlert } from '../lib/SiteAlert';
  * @type {string}
  */
 const htmlDocumentContent = `
-  <div data-js-alert-banner data-js-alert-id="1717427103" class="hidden opacity-0 w-full flex items-start gap-6 relative p-5 rounded-sm border-l-4 bg-red-100 border-red-500" role="alert">
+  <div data-js-alert-banner data-js-alert-id="1" class="hidden opacity-0 w-full flex items-start gap-6 relative p-5 rounded-sm border-l-4 bg-red-100 border-red-500" role="alert">
     <p>Vivamus in erat ut urna cursus vestibulum. Cras sagittis. Pellentesque auctor neque nec urna. Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis venenatis ante odio sit amet eros.</p>
     <button data-js-alert-close class="ml-auto">Close</button>
   </div>
 `;
 
 // Initialise Happy DOM
-const window = new Window();
+const window = new Window({
+  url: 'http://localhost:3000'
+});
 const document = window.document;
 
 // Make window and document global
@@ -131,5 +133,20 @@ describe('Site alert behaviour', () => {
     // We grab a fresh instance because `happy-dom` caches the element.
     const alertElAfterClose = document.querySelector('[data-js-alert-banner]');
     expect(alertElAfterClose).toBe(null);
+  });
+
+  it('should set a cookie when the alert has been closed', () => {
+    const mockedCookieSet = vi.spyOn(window.document, 'cookie', 'set');
+
+    const alertEl = document.querySelector('[data-js-alert-banner]');
+    const closeEl = document.querySelector('[data-js-alert-close]');
+
+    new SiteAlert(alertEl, {
+      closeElement: closeEl,
+    });
+
+    closeEl.click();
+
+    expect(mockedCookieSet).toHaveBeenCalledOnce();
   });
 });
