@@ -15,7 +15,7 @@ const htmlDocumentContent = `
 
 // Initialise Happy DOM
 const window = new Window({
-  url: 'http://localhost:3000'
+  url: 'http://localhost:3000' // A url is required for cookies to work.
 });
 const document = window.document;
 
