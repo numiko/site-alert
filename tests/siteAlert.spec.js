@@ -147,6 +147,8 @@ describe('Site alert behaviour', () => {
 
     closeEl.click();
 
+    // I'm mocking the `cookie` object on the document instead of the `get` and `set`
+    // methods on the `js-cookie` library to keep the tests library agnostic.
     expect(mockedCookieSet).toHaveBeenCalledOnce();
   });
 
