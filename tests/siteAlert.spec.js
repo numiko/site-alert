@@ -1,11 +1,17 @@
 import { Window } from 'happy-dom';
-import fs from 'fs';
-import path from 'path';
 import { expect, describe, it, vi, beforeEach, afterEach } from 'vitest';
 import { SiteAlert } from '../lib/SiteAlert';
 
-// Read the HTML document content
-const htmlDocumentContent = fs.readFileSync(path.join(process.cwd(), 'index.html')).toString();
+/**
+ * The HTML used to assert our tests against.
+ * @type {string}
+ */
+const htmlDocumentContent = `
+  <div data-js-alert-banner data-js-alert-id="1717427103" class="hidden opacity-0 w-full flex items-start gap-6 relative p-5 rounded-sm border-l-4 bg-red-100 border-red-500" role="alert">
+    <p>Vivamus in erat ut urna cursus vestibulum. Cras sagittis. Pellentesque auctor neque nec urna. Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis venenatis ante odio sit amet eros.</p>
+    <button data-js-alert-close class="ml-auto">Close</button>
+  </div>
+`;
 
 // Initialise Happy DOM
 const window = new Window();
@@ -15,10 +21,13 @@ const document = window.document;
 global.window = window;
 global.document = document;
 
+async function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // Make sure the document is in a clear state before each test.
 beforeEach(() => {
-  document.body.innerHTML = '';
-  document.write(htmlDocumentContent);
+  document.body.innerHTML = htmlDocumentContent;
 });
 
 afterEach(()=> {
@@ -106,15 +115,21 @@ describe('Site alert initialisation', () => {
   });
 });
 
-// describe('Site alert behaviour', () => {
-//   it('should hide the alert when the close button is clicked', () => {
-//     const alertEl = document.querySelector('[data-js-alert-banner]');
-//     const closeEl = document.querySelector('[data-js-alert-close]');
+describe('Site alert behaviour', () => {
+  it('should hide the alert when the close button is clicked', async () => {
+    const alertEl = document.querySelector('[data-js-alert-banner]');
+    const closeEl = document.querySelector('[data-js-alert-close]');
 
-//     new SiteAlert(alertEl, {
-//       closeElement: closeEl
-//     });
+    new SiteAlert(alertEl, {
+      closeElement: closeEl
+    });
 
-//     console.log(closeEl);
-//   });
-// });
+    closeEl.click();
+
+    await delay(400);
+
+    // We grab a fresh instance because `happy-dom` caches the element.
+    const alertElAfterClose = document.querySelector('[data-js-alert-banner]');
+    expect(alertElAfterClose).toBe(null);
+  });
+});
