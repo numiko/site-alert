@@ -87,11 +87,11 @@ describe('Site alert initialisation', () => {
     const ID = 'test-id';
 
     const alert = new SiteAlert('[data-js-alert-banner]', {
-      id: ID,
+      cookieId: ID,
       closeElement: '[data-js-alert-close]'
     });
 
-    expect(alert.id).toBe(ID);
+    expect(alert.cookieId).toBe(ID);
   });
 
   it('should initialise the cookie prefix when a custom value', () => {
@@ -142,6 +142,7 @@ describe('Site alert behaviour', () => {
     const closeEl = document.querySelector('[data-js-alert-close]');
 
     new SiteAlert(alertEl, {
+      cookieId: '1',
       closeElement: closeEl,
     });
 
@@ -167,7 +168,7 @@ describe('Site alert behaviour', () => {
     new SiteAlert(alertEl, {
       closeElement: closeEl,
       cookiePrefix: ALERT_PREFIX,
-      id: ALERT_ID
+      cookieId: ALERT_ID
     });
 
     // We grab a fresh instance because the element is cached.
