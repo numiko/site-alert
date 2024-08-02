@@ -1,6 +1,6 @@
 import i from "gsap";
 import o from "js-cookie";
-class c {
+class l {
   /**
    *
    * @param {HTMLElement|string} alert
@@ -11,10 +11,10 @@ class c {
    * @param {number} options.cookieExpiry Number of days until the cookie expires.
    */
   constructor(t, e = {}) {
-    this.alert = typeof t == "string" ? document.querySelector(t) : t, this.closeElement = typeof e.closeElement == "string" ? document.querySelector(e.closeElement) : e.closeElement, this.cookieId = e.cookieId, this.cookiePrefix = e.cookiePrefix || "site_alert", this.cookieExpiryInDays = e.cookieExpiry || 7, this.init();
+    this.alert = typeof t == "string" ? document.querySelector(t) : t, this.closeElement = typeof e.closeElement == "string" ? document.querySelector(e.closeElement) : e.closeElement, this.cookieId = e.cookieId, this.cookiePrefix = e.cookiePrefix || "", this.cookieExpiryInDays = e.cookieExpiry || 7, this.init();
   }
   getCookieName() {
-    return `${this.cookiePrefix}_${this.cookieId}`;
+    return this.cookiePrefix ? `${this.cookiePrefix}_${this.cookieId}` : this.cookieId;
   }
   cookieExists() {
     return o.get(this.getCookieName());
@@ -38,7 +38,7 @@ class c {
   }
   addEventListeners() {
     this.closeElement.addEventListener("click", (t) => {
-      t.preventDefault(), !this.cookieExists() && this.cookieId && this.setCookie(), i.to(this.alert, {
+      t.preventDefault(), this.cookieId && !this.cookieExists() && this.setCookie(), i.to(this.alert, {
         opacity: 0,
         duration: 0.3,
         onComplete: () => {
@@ -52,5 +52,5 @@ class c {
   }
 }
 export {
-  c as SiteAlert
+  l as SiteAlert
 };
