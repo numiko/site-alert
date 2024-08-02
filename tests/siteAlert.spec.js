@@ -175,4 +175,21 @@ describe('Site alert behaviour', () => {
     const alertElAfterClose = document.querySelector('[data-js-alert-banner]');
     expect(alertElAfterClose).toBe(null);
   });
+
+  it('should not set a cookie if no cookieId is passed', () => {
+    const mockedCookieSet = vi.spyOn(window.document, 'cookie', 'set');
+
+    const alertEl = document.querySelector('[data-js-alert-banner]');
+    const closeEl = document.querySelector('[data-js-alert-close]');
+
+    new SiteAlert(alertEl, {
+      closeElement: closeEl,
+    });
+
+    closeEl.click();
+
+    // I'm mocking the `cookie` object on the document instead of the `get` and `set`
+    // methods on the `js-cookie` library to keep the tests library agnostic.
+    expect(mockedCookieSet).not.toHaveBeenCalledOnce();
+  });
 });
