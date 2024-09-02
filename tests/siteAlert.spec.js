@@ -87,11 +87,11 @@ describe('Site alert initialisation', () => {
     const ID = 'test-id';
 
     const alert = new SiteAlert('[data-js-alert-banner]', {
-      id: ID,
+      cookieId: ID,
       closeElement: '[data-js-alert-close]'
     });
 
-    expect(alert.id).toBe(ID);
+    expect(alert.cookieId).toBe(ID);
   });
 
   it('should initialise the cookie prefix when a custom value', () => {
@@ -142,6 +142,7 @@ describe('Site alert behaviour', () => {
     const closeEl = document.querySelector('[data-js-alert-close]');
 
     new SiteAlert(alertEl, {
+      cookieId: '1',
       closeElement: closeEl,
     });
 
@@ -167,11 +168,28 @@ describe('Site alert behaviour', () => {
     new SiteAlert(alertEl, {
       closeElement: closeEl,
       cookiePrefix: ALERT_PREFIX,
-      id: ALERT_ID
+      cookieId: ALERT_ID
     });
 
     // We grab a fresh instance because the element is cached.
     const alertElAfterClose = document.querySelector('[data-js-alert-banner]');
     expect(alertElAfterClose).toBe(null);
+  });
+
+  it('should not set a cookie if no cookieId is passed', () => {
+    const mockedCookieSet = vi.spyOn(window.document, 'cookie', 'set');
+
+    const alertEl = document.querySelector('[data-js-alert-banner]');
+    const closeEl = document.querySelector('[data-js-alert-close]');
+
+    new SiteAlert(alertEl, {
+      closeElement: closeEl,
+    });
+
+    closeEl.click();
+
+    // I'm mocking the `cookie` object on the document instead of the `get` and `set`
+    // methods on the `js-cookie` library to keep the tests library agnostic.
+    expect(mockedCookieSet).not.toHaveBeenCalledOnce();
   });
 });
