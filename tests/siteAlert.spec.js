@@ -1,35 +1,47 @@
-import { Window } from 'happy-dom';
+import { Browser } from 'happy-dom';
 import { expect, describe, it, vi, beforeEach, afterEach } from 'vitest';
 import { SiteAlert } from '../lib/SiteAlert';
+
+async function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 /**
  * The HTML used to assert our tests against.
  * @type {string}
  */
 const htmlDocumentContent = `
-  <div data-js-alert-banner data-js-alert-id="1" class="hidden opacity-0 w-full flex items-start gap-6 relative p-5 rounded-sm border-l-4 bg-red-100 border-red-500" role="alert">
-    <p>Vivamus in erat ut urna cursus vestibulum. Cras sagittis. Pellentesque auctor neque nec urna. Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis venenatis ante odio sit amet eros.</p>
-    <button data-js-alert-close class="ml-auto">Close</button>
-  </div>
+<html>
+  <head>
+    <title>Site Alert</title>
+  </head>
+
+  <body>
+    <div data-js-alert-banner data-js-alert-id="1" class="hidden opacity-0 w-full flex items-start gap-6 relative p-5 rounded-sm border-l-4 bg-red-100 border-red-500" role="alert">
+      <p>Vivamus in erat ut urna cursus vestibulum. Cras sagittis. Pellentesque auctor neque nec urna. Etiam sollicitudin, ipsum eu pulvinar rutrum, tellus ipsum laoreet sapien, quis venenatis ante odio sit amet eros.</p>
+      <button data-js-alert-close class="ml-auto">Close</button>
+    </div>
+  </body>
+</html>
 `;
 
-// Initialise Happy DOM
-const window = new Window({
-  url: 'http://localhost:3000' // A url is required for cookies to work.
-});
-const document = window.document;
-
-// Make window and document global
-global.window = window;
-global.document = document;
-
-async function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+let browser;
+let page;
+let document;
 
 // Make sure the document is in a clear state before each test.
 beforeEach(() => {
-  document.body.innerHTML = htmlDocumentContent;
+  browser = new Browser({
+    settings: {
+
+    }
+  });
+  page = browser.newPage();
+  page.url = 'http://localhost';
+  page.content = htmlDocumentContent;
+  document = page.mainFrame.document;
+
+  global.document = document;
 });
 
 afterEach(()=> {
@@ -136,8 +148,6 @@ describe('Site alert behaviour', () => {
   });
 
   it('should set a cookie when the alert has been closed', () => {
-    const mockedCookieSet = vi.spyOn(window.document, 'cookie', 'set');
-
     const alertEl = document.querySelector('[data-js-alert-banner]');
     const closeEl = document.querySelector('[data-js-alert-close]');
 
@@ -148,9 +158,7 @@ describe('Site alert behaviour', () => {
 
     closeEl.click();
 
-    // I'm mocking the `cookie` object on the document instead of the `get` and `set`
-    // methods on the `js-cookie` library to keep the tests library agnostic.
-    expect(mockedCookieSet).toHaveBeenCalledOnce();
+    expect(document.cookie).toBe('1=true');
   });
 
   it('should remove the alert if it has already been closed', () => {
@@ -177,8 +185,6 @@ describe('Site alert behaviour', () => {
   });
 
   it('should not set a cookie if no cookieId is passed', () => {
-    const mockedCookieSet = vi.spyOn(window.document, 'cookie', 'set');
-
     const alertEl = document.querySelector('[data-js-alert-banner]');
     const closeEl = document.querySelector('[data-js-alert-close]');
 
@@ -188,8 +194,6 @@ describe('Site alert behaviour', () => {
 
     closeEl.click();
 
-    // I'm mocking the `cookie` object on the document instead of the `get` and `set`
-    // methods on the `js-cookie` library to keep the tests library agnostic.
-    expect(mockedCookieSet).not.toHaveBeenCalledOnce();
+    expect(document.cookie).toBe('');
   });
 });
