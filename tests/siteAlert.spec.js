@@ -31,11 +31,7 @@ let document;
 
 // Make sure the document is in a clear state before each test.
 beforeEach(() => {
-  browser = new Browser({
-    settings: {
-
-    }
-  });
+  browser = new Browser();
   page = browser.newPage();
   page.url = 'http://localhost:8080/';
   page.content = htmlDocumentContent;
