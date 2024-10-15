@@ -14,7 +14,7 @@ import { SiteAlert } from '@numiko/site-alert';
 const siteAlerts = document.querySelectorAll('[data-js-alert-banner]');
 siteAlerts.forEach( (alert) => {
   new SiteAlert(alert, {
-    id: alert.dataset.jsAlertId,
+    cookieId: alert.dataset.jsAlertId,
     closeElement: alert.querySelector('[data-js-alert-close]'),
     cookiePrefix: 'site_alert',
     cookieExpiry: 7,
@@ -33,9 +33,3 @@ siteAlerts.forEach( (alert) => {
     <button data-js-alert-close class="ml-auto">Close</button>
   </div>
 ```
-
-<br />
-
-## Roadmap
----
-1. Tests
