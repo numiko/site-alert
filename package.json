@@ -1,7 +1,7 @@
 {
   "name": "@numiko/site-alert",
   "description": "Site alerts",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "type": "module",
   "private": true,
   "repository": {
@@ -14,7 +14,8 @@
     "preview": "vite preview",
     "test": "vitest",
     "test:coverage": "vitest --coverage",
-    "test:ci": "vitest --run --reporter junit --outputFile ./reports/results.xml --coverage.enabled --coverage.include lib --coverage.reporter=html --coverage.reportsDirectory ./reports/"
+    "test:ci": "vitest --run --reporter junit --outputFile ./reports/results.xml --coverage.enabled --coverage.include lib --coverage.reporter=html --coverage.reportsDirectory ./reports/",
+    "release": "release-it"
   },
   "main": "./dist/SiteAlert.umd.js",
   "files": [
@@ -36,8 +37,20 @@
     "@vitest/coverage-v8": "^1.6.0",
     "eslint": "^8.56.0",
     "happy-dom": "^14.2.3",
+    "release-it": "^17.9.0",
     "vite": "^5.2.12",
     "vite-plugin-eslint": "^1.8.1",
     "vitest": "^1.6.0"
+  },
+  "release-it": {
+    "$schema": "https://unpkg.com/release-it/schema/release-it.json",
+    "hooks": {
+      "before:init": [
+        "vitest run"
+      ],
+      "after:bump": [
+        "npm run build"
+      ]
+    }
   }
 }
