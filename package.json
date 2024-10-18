@@ -1,7 +1,7 @@
 {
   "name": "@numiko/site-alert",
   "description": "Site alerts",
-  "version": "1.1.1",
+  "version": "1.0.0",
   "type": "module",
   "private": true,
   "repository": {

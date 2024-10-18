@@ -1,6 +1,6 @@
 import i from "gsap";
 import o from "js-cookie";
-class l {
+class h {
   /**
    *
    * @param {HTMLElement|string} alert
@@ -11,7 +11,7 @@ class l {
    * @param {number} options.cookieExpiry Number of days until the cookie expires.
    */
   constructor(t, e = {}) {
-    this.alert = typeof t == "string" ? document.querySelector(t) : t, this.closeElement = typeof e.closeElement == "string" ? document.querySelector(e.closeElement) : e.closeElement, this.cookieId = e.cookieId, this.cookiePrefix = e.cookiePrefix || "", this.cookieExpiryInDays = e.cookieExpiry || 7, this.init(), console.log("sdsd");
+    this.alert = typeof t == "string" ? document.querySelector(t) : t, this.closeElement = typeof e.closeElement == "string" ? document.querySelector(e.closeElement) : e.closeElement, this.cookieId = e.cookieId, this.cookiePrefix = e.cookiePrefix || "", this.cookieExpiryInDays = e.cookieExpiry || 7, this.init();
   }
   getCookieName() {
     return this.cookiePrefix ? `${this.cookiePrefix}_${this.cookieId}` : this.cookieId;
@@ -49,5 +49,5 @@ class l {
   }
 }
 export {
-  l as SiteAlert
+  h as SiteAlert
 };
