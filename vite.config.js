@@ -24,8 +24,8 @@ export default defineConfig({
         // Provide global variables to use in the UMD build
         // for externalized deps
         globals: {
-          gsap: 'gsap',
-          cookie: 'js-cookie'
+          'gsap': 'gsap',
+          'js-cookie': 'Cookies'
         },
       },
     },
