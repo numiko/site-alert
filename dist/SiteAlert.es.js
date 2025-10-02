@@ -1,29 +1,30 @@
-import i from "gsap";
-import o from "js-cookie";
+import r from "gsap";
+import s from "js-cookie";
 class h {
-  /**
-   *
-   * @param {HTMLElement|string} alert
-   * @param {Object} options
-   * @param {HTMLElement|string} options.closeElement This property is required.
-   * @param {string} options.cookieId
-   * @param {string} options.cookiePrefix
-   * @param {number} options.cookieExpiry Number of days until the cookie expires.
-   */
-  constructor(t, e = {}) {
-    this.alert = typeof t == "string" ? document.querySelector(t) : t, this.closeElement = typeof e.closeElement == "string" ? document.querySelector(e.closeElement) : e.closeElement, this.cookieId = e.cookieId, this.cookiePrefix = e.cookiePrefix || "", this.cookieExpiryInDays = e.cookieExpiry || 7, this.init();
+  constructor(t, e) {
+    if (!t)
+      throw new Error("Alert is required — this can be a HTML element or a selector");
+    const o = typeof t == "string" ? document.querySelector(t) : t;
+    if (!o)
+      throw new Error("Alert element not found");
+    if (this.alert = o, !e.closeElement)
+      throw new Error("Close element is required");
+    const i = typeof e.closeElement == "string" ? document.querySelector(e.closeElement) : e.closeElement;
+    if (!i)
+      throw new Error("Close element not found");
+    this.closeElement = i, this.cookieId = e.cookieId, this.cookiePrefix = e.cookiePrefix || "", this.cookieExpiryInDays = e.cookieExpiry || 7, this.init();
   }
   getCookieName() {
     return this.cookiePrefix ? `${this.cookiePrefix}_${this.cookieId}` : this.cookieId;
   }
   cookieExists() {
-    return o.get(this.getCookieName());
+    return s.get(this.getCookieName());
   }
   setCookie() {
-    o.set(this.getCookieName(), !0, { expires: this.cookieExpiryInDays });
+    s.set(this.getCookieName(), !0, { expires: this.cookieExpiryInDays });
   }
   showAlert() {
-    i.to(this.alert, {
+    r.to(this.alert, {
       autoAlpha: 1,
       y: 0,
       duration: 0.3,
@@ -35,7 +36,7 @@ class h {
   }
   addEventListeners() {
     this.closeElement.addEventListener("click", (t) => {
-      t.preventDefault(), this.cookieId && !this.cookieExists() && this.setCookie(), i.to(this.alert, {
+      t.preventDefault(), this.cookieId && !this.cookieExists() && this.setCookie(), r.to(this.alert, {
         opacity: 0,
         duration: 0.3,
         onComplete: () => {
