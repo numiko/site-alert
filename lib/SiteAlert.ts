@@ -4,8 +4,8 @@ import Cookies from 'js-cookie';
 type Options = {
   closeElement: HTMLElement | string;
   cookieId: string;
-  cookiePrefix: string;
-  cookieExpiry: number;
+  cookiePrefix?: string;
+  cookieExpiry?: number;
 };
 
 class SiteAlert {
