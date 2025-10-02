@@ -6,7 +6,7 @@ type Options = {
   cookieId: string;
   cookiePrefix: string;
   cookieExpiry: number;
-}
+};
 
 class SiteAlert {
   alert: HTMLElement;
@@ -25,7 +25,7 @@ class SiteAlert {
     }
     this.alert = alertEl;
 
-    if(!options.closeElement) {
+    if (!options.closeElement) {
       throw new Error('Close element is required');
     }
     const closeEl = typeof options.closeElement === 'string' ? document.querySelector<HTMLElement>(options.closeElement) : options.closeElement;
