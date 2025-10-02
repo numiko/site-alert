@@ -1,20 +1,39 @@
 import gsap from 'gsap';
 import Cookies from 'js-cookie';
 
-class SiteAlert {
+type Options = {
+  closeElement: HTMLElement | string;
+  cookieId: string;
+  cookiePrefix: string;
+  cookieExpiry: number;
+}
 
-  /**
-   *
-   * @param {HTMLElement|string} alert
-   * @param {Object} options
-   * @param {HTMLElement|string} options.closeElement This property is required.
-   * @param {string} options.cookieId
-   * @param {string} options.cookiePrefix
-   * @param {number} options.cookieExpiry Number of days until the cookie expires.
-   */
-  constructor(alert, options = {}) {
-    this.alert = typeof alert === 'string' ? document.querySelector(alert) : alert;
-    this.closeElement = typeof options.closeElement === 'string' ? document.querySelector(options.closeElement) : options.closeElement;
+class SiteAlert {
+  alert: HTMLElement;
+  closeElement: HTMLElement;
+  cookieId: string;
+  cookiePrefix: string;
+  cookieExpiryInDays: number;
+
+  constructor(alert: HTMLElement | string, options: Options) {
+    if (!alert) {
+      throw new Error('Alert is required — this can be a HTML element or a selector');
+    }
+    const alertEl = typeof alert === 'string' ? document.querySelector<HTMLElement>(alert) : alert;
+    if (!alertEl) {
+      throw new Error('Alert element not found');
+    }
+    this.alert = alertEl;
+
+    if(!options.closeElement) {
+      throw new Error('Close element is required');
+    }
+    const closeEl = typeof options.closeElement === 'string' ? document.querySelector<HTMLElement>(options.closeElement) : options.closeElement;
+    if (!closeEl) {
+      throw new Error('Close element not found');
+    }
+    this.closeElement = closeEl;
+
     this.cookieId = options.cookieId;
     this.cookiePrefix = options.cookiePrefix || '';
     this.cookieExpiryInDays = options.cookieExpiry || 7;
