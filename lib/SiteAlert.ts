@@ -98,4 +98,7 @@ class SiteAlert {
   }
 }
 
-export { SiteAlert };
+export {
+  SiteAlert,
+  type Options
+};
