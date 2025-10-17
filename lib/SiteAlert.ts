@@ -50,7 +50,7 @@ class SiteAlert {
   }
 
   setCookie() {
-    Cookies.set(this.getCookieName(), true, { expires: this.cookieExpiryInDays });
+    Cookies.set(this.getCookieName(), 'true', { expires: this.cookieExpiryInDays });
   }
 
   showAlert() {
