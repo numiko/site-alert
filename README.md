@@ -36,17 +36,4 @@ new SiteAlert(siteAlertEl, {
 
 ## API
 
-### Options
-
-| Option | Description | Type | Default
-| --- | --- | --- | --- |
-| `alert` | The element to initialise as a site alert. This can be a HTML element or a selector | `HTMLElement` or `string` | `undefined`
-| `options` | A list of options to configure the module | `object` | `{}`
-| `options.closeElement` | The element responsible for triggering the closing of the alert. This can be a HTML element or a selector | `HTMLElement` or `string` | `undefined`
-| `options.cookieId` | The ID to use when setting the cookie's name | `string` | `undefined`
-| `options.cookiePrefix` | The prefix to use when setting the cookie's name | `string` | `''`
-| `options.cookieExpiryInDays` | The amount of time to hide the alert once it has been dismissed | `number` | `7`
-
-### Methods
-
-No methods are expected to be called publicly.
+See [documentation](https://v1-1-1--numiko-site-alert.netlify.app) for more detail on how to use package.
