@@ -31,6 +31,7 @@ const siteAlertEl = document.querySelector('[data-js-alert-banner]');
 new SiteAlert(siteAlertEl, {
   closeElement: siteAlertEl.querySelector('[data-js-alert-close]'),
   cookieExpiry: 7,
+  cookieId: 'id',
 });
 ```
 
