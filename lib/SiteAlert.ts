@@ -3,7 +3,7 @@ import Cookies from 'js-cookie';
 
 type Options = {
   closeElement: HTMLElement | string;
-  cookieId: string;
+  cookieId?: string;
   cookiePrefix?: string;
   cookieExpiry?: number;
 };
@@ -11,7 +11,7 @@ type Options = {
 class SiteAlert {
   alert: HTMLElement;
   closeElement: HTMLElement;
-  cookieId: string;
+  cookieId?: string;
   cookiePrefix: string;
   cookieExpiryInDays: number;
 
@@ -42,6 +42,10 @@ class SiteAlert {
   }
 
   getCookieName() {
+    if (!this.cookieId) {
+      return '';
+    }
+
     return this.cookiePrefix ? `${this.cookiePrefix}_${this.cookieId}` : this.cookieId;
   }
 
