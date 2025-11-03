@@ -9,13 +9,7 @@ The Site Alert package allows developers to easily render alerts on a page with 
 
 ## Installation
 
-The package can be installed from BitBucket. If the package has reached version 1, installing
-by the semver method is recommended. If the package has not reached version 1, it is
-possible to install using the tag.
-
-`npm install ssh://git@bitbucket.org:numiko/site-alert.git#<TAG_NAME>`
-
-`npm install ssh://git@bitbucket.org:numiko/site-alert.git##semver:<VERSION>`
+`npm i @numiko/site-alert`
 
 ## Usage
 
