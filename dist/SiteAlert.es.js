@@ -15,13 +15,13 @@ class h {
     this.closeElement = i, this.cookieId = e.cookieId, this.cookiePrefix = e.cookiePrefix || "", this.cookieExpiryInDays = e.cookieExpiry || 7, this.init();
   }
   getCookieName() {
-    return this.cookiePrefix ? `${this.cookiePrefix}_${this.cookieId}` : this.cookieId;
+    return this.cookieId ? this.cookiePrefix ? `${this.cookiePrefix}_${this.cookieId}` : this.cookieId : "";
   }
   cookieExists() {
     return s.get(this.getCookieName());
   }
   setCookie() {
-    s.set(this.getCookieName(), !0, { expires: this.cookieExpiryInDays });
+    s.set(this.getCookieName(), "true", { expires: this.cookieExpiryInDays });
   }
   showAlert() {
     r.to(this.alert, {
