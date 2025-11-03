@@ -1,9 +1,16 @@
 import { SiteAlert } from '../lib/SiteAlert';
 
-const siteAlerts = document.querySelectorAll('[data-js-alert-banner]');
+const siteAlerts = document.querySelectorAll<HTMLElement>('[data-js-alert-banner]');
 siteAlerts.forEach( (alert) => {
+  const closeElement = alert.querySelector<HTMLElement>('[data-js-alert-close]');
+
+  if (!closeElement) {
+    return;
+  }
+
   new SiteAlert(alert, {
-    closeElement: alert.querySelector('[data-js-alert-close]'),
+    closeElement: closeElement,
     cookieExpiry: 7,
+    cookieId: 'alert',
   });
 });

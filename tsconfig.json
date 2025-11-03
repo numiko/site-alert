@@ -1,6 +1,8 @@
 {
   "include": ["./src/**/*", "./lib/**/*"],
   "compilerOptions": {
+    "target": "ES2021",
+    "lib": ["ES2021", "DOM"],
     "strict": true,
     "composite": true,
     "noEmit": true,
