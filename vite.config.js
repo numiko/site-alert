@@ -16,7 +16,7 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'lib/SiteAlert.ts'),
+      entry: path.resolve(import.meta.dirname, 'lib/SiteAlert.ts'),
       name: 'SiteAlert',
       fileName: (format) => `SiteAlert.${format}.js`
     },
