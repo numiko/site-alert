@@ -27,6 +27,7 @@
   ],
   "exports": {
     ".": {
+      "types": "./dist/SiteAlert.d.ts",
       "import": "./dist/SiteAlert.es.js",
       "require": "./dist/SiteAlert.umd.js"
     }
