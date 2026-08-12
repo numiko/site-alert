@@ -16,7 +16,7 @@
     "test:coverage": "vitest --coverage",
     "test:ci": "vitest --run --reporter junit --outputFile ./reports/results.xml --coverage.enabled --coverage.include lib --coverage.reporter=html --coverage.reportsDirectory ./reports/",
     "generate-docs": "typedoc lib/SiteAlert.ts",
-    "deploy-docs": "netlify deploy --dir=docs --alias=v$(node -p \"require('./package.json').version\")",
+    "deploy-docs": "netlify deploy --dir=docs --site=28fa2842-7a64-4934-b8d5-c5c517f9bb11 --alias=v$(node -p \"require('./package.json').version\") && netlify deploy --dir=docs --site=28fa2842-7a64-4934-b8d5-c5c517f9bb11 --prod",
     "release": "release-it"
   },
   "main": "./dist/SiteAlert.umd.js",
