@@ -31,4 +31,4 @@ new SiteAlert(siteAlertEl, {
 
 ## API
 
-See [documentation](https://v1-3-1--numiko-site-alert.netlify.app) for more detail on how to use package.
+See [documentation](https://v1-3-2--numiko-site-alert.netlify.app) for more detail on how to use package.
