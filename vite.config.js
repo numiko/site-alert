@@ -25,7 +25,7 @@ export default defineConfig({
       name: 'SiteAlert',
       fileName: (format) => `SiteAlert.${format}.js`
     },
-    rollupOptions: {
+    rolldownOptions: {
       // make sure to externalize deps that shouldn't be bundled
       // into your library
       external: ['gsap', 'js-cookie'],
