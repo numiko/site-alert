@@ -4,12 +4,15 @@ import eslint from 'vite-plugin-eslint';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
-  plugins: [eslint(), dts({
-    tsconfigPath: './tsconfig.dts.json',
-    entryRoot: 'lib',
-    outDir: 'dist',
-    rollupTypes: true
-  })],
+  plugins: [
+    eslint(),
+    dts({
+      tsconfigPath: './tsconfig.dts.json',
+      entryRoot: 'lib',
+      outDir: 'dist',
+      rollupTypes: true
+    })
+  ],
   test: {
     environment: 'happy-dom',
     coverage: {
