@@ -1,6 +1,6 @@
 import e from "gsap";
 import t from "js-cookie";
-//#region lib/SiteAlert.ts
+// lib/SiteAlert.ts
 var n = class {
 	constructor(e, t) {
 		if (!e) throw Error("Alert is required — this can be a HTML element or a selector");
@@ -46,5 +46,4 @@ var n = class {
 		this.alert && (this.cookieExists() ? this.removeAlert() : (this.showAlert(), this.addEventListeners()));
 	}
 };
-//#endregion
 export { n as SiteAlert };
