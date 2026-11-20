@@ -51,7 +51,7 @@
     "@types/js-cookie": "^3.0.6",
     "@types/node": "^26.2.0",
     "@vitest/coverage-v8": "^5.0.5",
-    "eslint": "^9.39.5",
+    "eslint": "^10.14.0",
     "globals": "^17.10.0",
     "happy-dom": "^21.0.4",
     "netlify-cli": "^27.16.2",
